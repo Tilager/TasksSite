@@ -71,4 +71,11 @@ public class FolderService {
 
         return Files.deleteIfExists(file.toPath());
     }
+
+    public boolean rename(String folderId, String newName) {
+        File folder = Objects.requireNonNull(new File(uploadPath).listFiles((dir, name) -> name.startsWith(folderId)))[0];
+        File resultName = new File(folder.getParent() + "/" + folderId + "_" + newName);
+
+        return folder.renameTo(resultName);
+    }
 }

@@ -42,7 +42,7 @@
                     <div class="group" th:each="folder: ${allFolders}" th:id="${folder.key.substring(0, 13)}">
                         <div class="group-title">
                             <div class="group-name add-remove-group-btns" sec:authorize="isAuthenticated()">
-                                <input type="text" name="group-name" id="group-name" th:value="${folder.key.substring(14)}">
+                                <input type="text" name="group-name" class="folder-name" th:value="${folder.key.substring(14)}">
                                 <button type="button"><i class="fas fa-folder-minus file-remove-btn"></i></button> <!-- Удалить папку -->
                                 <button type="button"><i class="fa fa-file file-add-btn" aria-hidden="true"></i></button> <!-- Добавить файл -->
                                 <input th:id="${'file-add-' + folder.key.substring(0, 13)}"

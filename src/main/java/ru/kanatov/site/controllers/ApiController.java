@@ -61,4 +61,12 @@ public class ApiController {
             return new ResponseEntity<>("IOException", HttpStatus.BAD_REQUEST);
         }
     }
+
+    @PostMapping("/rename")
+    public ResponseEntity<String> rename(@RequestParam("folderId") String folderId, @RequestParam("name") String newName) {
+        if (folderService.rename(folderId, newName))
+            return new ResponseEntity<>("Folder successes renamed.", HttpStatus.OK);
+        else
+            return new ResponseEntity<>("Folder not renamed!", HttpStatus.BAD_REQUEST);
+    }
 }

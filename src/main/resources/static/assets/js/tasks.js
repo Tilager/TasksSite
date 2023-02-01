@@ -14,7 +14,7 @@ $(document).on('click', '#create-folder-btn', function (e) {
                     `<div class="group" id="${indexFolder}">
                         <div class="group-title">
                             <div class="group-name add-remove-group-btns" sec:authorize="isAuthenticated()">
-                                <input type="text" name="group-name" id="group-name" value="${fileName}">
+                                <input type="text" name="group-name" class="folder-name" value="${fileName}">
                                 <button type="button"><i class="fas fa-folder-minus file-remove-btn"></i></button> <!-- Удалить папку -->
                                 <button type="button"><i class="fa fa-file file-add-btn" aria-hidden="true"></i></button> <!-- Добавить файл -->
                                 <input id="file-add-${indexFolder}"
@@ -120,3 +120,25 @@ $(document).on('click', '.remove-file', function (e) {
 
     return false;
 });
+
+$(document).on('keydown', '.folder-name', function (e) {
+    if (e.keyCode === 13) {
+        let name = $(this).val();
+        let folderId = $(this).closest('.group').attr('id');
+        let data = new FormData();
+        data.append("folderId", folderId);
+        data.append("name", name);
+
+        $.ajax({
+            url: "/api/rename",
+            method: "POST",
+            data: data,
+            processData: false,
+            contentType: false,
+            cache: false,
+            success: function (data) {
+                alert("Файл успешно переименован!");
+            }
+        })
+    }
+})
