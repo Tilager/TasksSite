@@ -65,7 +65,6 @@ $(document).on('click', '.file-add-btn', function (e) {
                             <p class="group-content-file-name">${file.name.substring(0, 7)}...</p>
                             <div class="group-content-file__items">
                                 <a href="/download/${folderId}/${data.substring(0, 13)}"><i class="fas fa-download"></i></a>
-                                <a href=""><i class="far fa-eye"></i></a>
                                 <a href="" class="remove-file"><i class="fas fa-trash-alt"></i></a>
                             </div>
                         </div>

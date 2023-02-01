@@ -59,13 +59,11 @@
                                 <p class="group-content-file-name" th:text="${fileName.substring(14).substring(0, 7) + '...'}">Название документа</p>
                                 <div class="group-content-file__items" sec:authorize="isAuthenticated()">
                                     <a th:href="${'/download/' + folder.key.substring(0, 13) + '/' + fileName.substring(0, 13)}" download><i class="fas fa-download"></i></a>
-                                    <a href=""><i class="far fa-eye"></i></a>
                                     <a href="" class="remove-file"><i class="fas fa-trash-alt"></i></a>
                                 </div>
 
                                 <div class="group-content-file__items" sec:authorize="!isAuthenticated()">
                                     <a th:href="${'/download/' + folder.key.substring(0, 13) + '/' + fileName.substring(0, 13)}" download><i class="fas fa-download"></i></a>
-                                    <a href=""><i class="far fa-eye"></i></a>
                                 </div>
                             </div>
                         </div>
