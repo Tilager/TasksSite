@@ -1,0 +1,166 @@
+@media (max-width: 1024px) {
+    .content-photo {
+        margin-left: 100px;
+    }
+
+    footer {
+        width: 120%;
+    }
+
+    footer h1 {
+        font-size: 24px;
+    }
+
+    footer p {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 20px;
+    }
+    
+    header ul li a {
+        font-size: 12px;
+    }
+
+    .header-menu-icon ul img {
+        display: none;
+    }
+
+    .left-text p {
+        font-size: 18px;
+        text-align: center;
+        width: 100%;
+        justify-content: center;
+    }
+
+    .left-text input[type="button"], a {
+        display: flex;
+        justify-content: center;
+        font-size: 14px;
+    }
+
+    .content-photo {
+        display: none;
+    }
+
+    .bottom-content input[type="button"] {
+        font-size: 14px;
+    }
+    
+    .bottom-content p {
+        font-size: 18px;
+        line-height: 30px;
+        width: 100%;
+    }
+
+    footer {
+        width: 125%;
+    }
+
+    footer h1 {
+        font-size: 20px;
+    }
+
+    footer p {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 426px) {
+   body {
+        padding: 20px 30px 0px;
+   }
+   
+   .header-logo {
+        display: none;
+    }
+
+   header {
+        justify-content: center;
+   }
+
+   header ul li a {
+    font-size: 14px;
+   }
+
+    .left-text p {
+        font-size: 16px;
+        text-align: center;
+    }
+
+    .bottom-content p {
+        font-size: 16px;
+
+    }
+
+    footer {
+        width: 120%;
+        height: 100px;
+        margin-left: -50px;
+    }
+
+    footer h1 {
+        font-size: 20px;
+    }
+
+    footer p {
+        font-size: 14px;
+    }
+
+}
+
+@media (max-width: 376px) {
+    header ul li a{
+        font-size: 13px;
+    }
+    
+    .left-text p {
+        font-size: 14px;
+        text-align: justify;
+    }
+    
+    .bottom-content p {
+        text-align: justify;
+        font-size: 14px;
+    }
+
+    .bottom-content input[type="button"] {
+        font-size: 12px;
+    }
+    
+    .left-text input[type="button"], a {
+        font-size: 12px;
+    }
+
+    footer {
+        height: 100px;
+    }
+
+}
+
+@media (max-width: 321px) {
+    header ul li a {
+        font-size: 10px;
+    }
+
+    .left-text p {
+        font-size: 12px;
+        text-align: justify;
+    }
+    
+    .bottom-content p {
+        text-align: justify;
+        font-size: 12px;
+    }
+    
+    .bottom-content input[type="button"] {
+        font-size: 12px;
+    }
+    
+    .left-text input[type="button"], a {
+        font-size: 12px;
+    }
+}

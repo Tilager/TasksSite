@@ -1,0 +1,143 @@
+@media (max-width: 1024px) {
+    
+    
+    .arrow-down {
+        margin-left: 40%;
+    }
+    
+    .refresher-courses {
+        margin-top: 40px;
+    }
+
+    footer {
+        width: 120%;
+    }
+    
+    body {
+        overflow-x: hidden;
+    }
+}
+
+@media (max-width: 768px) {
+    
+    .main-content-text-right {
+        margin-left: -100px;
+        font-size: 20px;
+    }
+
+    footer {
+        width: 125%;
+    }
+}
+
+@media (max-width: 426px) {
+   
+    body {
+        padding: 20px 30px 0;
+   }
+   
+    header h1 {
+        display: none;
+    }
+
+    header ul li a {
+        font-size: 14px;
+    } 
+
+    header {
+        justify-content: center;
+    }
+
+    .main-content-photo-left {
+        display: none;
+    }
+
+    .main-content-text-right {
+        margin-left: 100px;
+    }
+
+    .arrow-down {
+        display: none;
+    }
+
+    .achievment-content {
+        width: 335px;
+    }
+
+    .achievments-list > div h2 {
+        font-size: 18px;
+        padding: 10px;
+        width: 318px;
+    }
+
+    footer {
+        width: 120%;
+        height: 100px;
+        padding: 30px 160px;
+    }
+
+    footer h1 {
+        font-size: 20px;
+    }
+
+    footer p {
+        font-size: 14px;
+    }
+
+    body {
+        display: flex;
+        justify-content: center;
+    }
+
+}
+
+@media (max-width: 376px) {
+    
+    body {
+        display: flex;
+        justify-content: center;
+    }
+
+    header ul li a {
+        font-size: 13px;
+    }
+
+    footer {
+        width: 120%;
+        height: 100px;
+        padding: 30px 180px;
+    }
+}
+
+@media (max-width: 320px) {
+    
+    body {
+        display: flex;
+        justify-content: center;
+    }
+
+    .main-content-text-right {
+        font-size: 12px;
+    }
+  
+    header ul li a {
+        font-size: 10px;
+    }
+
+    .achievment-content {
+        width: 270px;
+    }
+
+    .achievments-list > div h2 {
+        font-size: 14px;
+        padding: 10px;
+        width: 254px;
+    }
+
+    footer {
+        width: 120%;
+        height: 100px;
+        padding: 30px 210px;
+    }
+
+}
