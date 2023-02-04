@@ -66,7 +66,7 @@ public class FolderService {
     }
 
     public boolean removeFile(String folderId, String fileId) throws IOException {
-        File folder = Objects.requireNonNull(new File("D:/users").listFiles((dir, name) -> name.startsWith(folderId)))[0];
+        File folder = Objects.requireNonNull(new File(uploadPath).listFiles((dir, name) -> name.startsWith(folderId)))[0];
         File file = Objects.requireNonNull(folder.listFiles(((dir, name) -> name.startsWith(fileId))))[0];
 
         return Files.deleteIfExists(file.toPath());

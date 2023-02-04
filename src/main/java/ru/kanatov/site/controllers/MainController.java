@@ -2,6 +2,7 @@ package ru.kanatov.site.controllers;
 
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -23,6 +24,9 @@ import java.util.*;
 @RequestMapping("/")
 @Log4j2
 public class MainController {
+    @Value("${upload_path}")
+    private String uploadPath;
+
     private final FolderService folderService;
 
     @Autowired
@@ -66,7 +70,7 @@ public class MainController {
     @GetMapping("/download/{folderId}/{fileId}")
     public ResponseEntity<Resource> downloadFile(@PathVariable("folderId") String folderId,
                                                  @PathVariable("fileId") String fileId) {
-        File folder = Objects.requireNonNull(new File("D:/users").listFiles((dir, name) -> name.startsWith(folderId)))[0];
+        File folder = Objects.requireNonNull(new File(uploadPath).listFiles((dir, name) -> name.startsWith(folderId)))[0];
         File file = Objects.requireNonNull(folder.listFiles(((dir, name) -> name.startsWith(fileId))))[0];
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + file.getName().substring(14));
