@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import ru.kanatov.site.exceptions.CreateFolderException;
 import ru.kanatov.site.services.FolderService;
 
 import java.io.IOException;
@@ -22,8 +23,12 @@ public class ApiController {
     }
 
     @PostMapping("/addFolder")
-    public String addFolder(@RequestBody String folderName) {
-        return folderService.createFolder(folderName);
+    public ResponseEntity<String> addFolder() {
+        try {
+            return new ResponseEntity<>(folderService.createFolder(), HttpStatus.OK);
+        } catch (CreateFolderException ex) {
+            return new ResponseEntity<>(ex.toString(), HttpStatus.BAD_REQUEST);
+        }
     }
 
     @PostMapping("/uploadFile")
@@ -64,9 +69,10 @@ public class ApiController {
 
     @PostMapping("/rename")
     public ResponseEntity<String> rename(@RequestParam("folderId") String folderId, @RequestParam("name") String newName) {
-        if (folderService.rename(folderId, newName))
-            return new ResponseEntity<>("Folder successes renamed.", HttpStatus.OK);
+        String changedName = folderService.rename(folderId, newName);
+        if (!changedName.equals(""))
+            return new ResponseEntity<>(changedName, HttpStatus.OK);
         else
-            return new ResponseEntity<>("Folder not renamed!", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Folder not renamed.", HttpStatus.BAD_REQUEST);
     }
 }

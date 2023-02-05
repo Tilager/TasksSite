@@ -1,37 +1,26 @@
 $(document).on('click', '#create-folder-btn', function (e) {
-    let fileName = document.getElementById('create-folder-name').value;
-    let regexForName = /^[А-Яа-яA-Za-z0-9 -]*$/
-    if (regexForName.test(fileName) && fileName.length > 0) {
-        $.post({
-            url: "/api/addFolder",
-            method: "post",
-            contentType: "application/json",
-            data: fileName,
-            success: function (data) {
-                let indexFolder = data.substring(0, 13);
+    $.post({
+        url: "/api/addFolder",
+        method: "post",
+        contentType: "application/json",
+        success: function (data) {
+            let indexFolder = data.substring(0, 13);
 
-                $('#folders-div').append(
-                    `<div class="group" id="${indexFolder}">
-                        <div class="group-title">
-                            <div class="group-name add-remove-group-btns" sec:authorize="isAuthenticated()">
-                                <input type="text" name="group-name" class="folder-name" value="${fileName}">
-                                <button type="button"><i class="fas fa-folder-minus file-remove-btn"></i></button> <!-- Удалить папку -->
-                                <button type="button"><i class="fa fa-file file-add-btn" aria-hidden="true"></i></button> <!-- Добавить файл -->
-                                <input id="file-add-${indexFolder}"
-                                       type="file" name="file-add" style="display: none;"
-                                       class="file-add"/>
-                            </div>
+            $('#folders-div').append(`<div class="group" id="${indexFolder}">
+                    <div class="group-title">
+                        <div class="group-name add-remove-group-btns" sec:authorize="isAuthenticated()">
+                            <input type="text" name="group-name" class="folder-name" value="${data.substring(14)}">
+                            <button type="button"><i class="fas fa-folder-minus file-remove-btn"></i></button> <!-- Удалить папку -->
+                            <button type="button"><i class="fa fa-file file-add-btn" aria-hidden="true"></i></button> <!-- Добавить файл -->
+                            <input id="file-add-${indexFolder}"
+                                   type="file" name="file-add" style="display: none;"
+                                   class="file-add"/>
                         </div>
-                        <div class="group-content"></div>
-                    </div>`
-                )
-            }
-        })
-    } else {
-        alert("Имя папки не может быть пустым и не может содержать спец. символы (кроме -)")
-    }
-
-    document.getElementById('create-folder-name').value = "";
+                    </div>
+                    <div class="group-content"></div>
+                </div>`)
+        }
+    })
 });
 
 $(document).on('click', '.file-add-btn', function (e) {
@@ -75,8 +64,7 @@ $(document).on('click', '.file-add-btn', function (e) {
 
             });
 
-        }
-        else {
+        } else {
             console.log("else")
         }
         inputFile.val = "";
@@ -138,6 +126,16 @@ $(document).on('keydown', '.folder-name', function (e) {
             cache: false,
             success: function (data) {
                 alert("Файл успешно переименован!");
+                let newFolderId = data.substring(0, 13);
+                $(`#${folderId}`).attr('id', newFolderId);
+
+            },
+            statusCode: {
+                400: function (data) {
+                    if (data.responseText === "Folder not renamed.") {
+                        alert("Папка не была переименована. (Возможно такая папка уже существует)")
+                    }
+                }
             }
         })
     }

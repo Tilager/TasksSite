@@ -27,19 +27,22 @@ public class FolderService {
         return Arrays.stream(Objects.requireNonNull(folder.listFiles())).filter(File::isDirectory).toList();
     }
 
-    public String createFolder(String name) {
-        String resultName = UUID.nameUUIDFromBytes(name.getBytes()).toString().substring(0, 13) + "_" + name;
-        File folder = new File(uploadPath + "/" + resultName);
+    public String createFolder() {
+        int count = 0;
+        while (true) {
+            String nameFolder = "Новая папка" + (count == 0 ? "" : " (" +  count + ")");
+            String uuidFolder = UUID.nameUUIDFromBytes(nameFolder.getBytes()).toString().substring(0, 13);
+            String resultFolderName = uuidFolder + "_" + nameFolder;
+            File folder = new File(uploadPath + "/" + resultFolderName);
+            if (!folder.exists()) {
+                if (folder.mkdir())
+                    return resultFolderName;
+                else
+                    throw new CreateFolderException("Folder not created.");
+            }
 
-        if (folder.exists()) {
-            log.error("A folder with this name already exists");
-            return "";
-        } else if (!folder.mkdir()) {
-            log.error("Error create folder!");
-            throw new CreateFolderException("Error create upload files folder!");
+            count++;
         }
-
-        return resultName;
     }
 
     public String uploadFile(MultipartFile file, String folderId) throws IOException {
@@ -72,10 +75,15 @@ public class FolderService {
         return Files.deleteIfExists(file.toPath());
     }
 
-    public boolean rename(String folderId, String newName) {
+    public String rename(String folderId, String newName) {
+        String newFolderId = UUID.nameUUIDFromBytes(newName.getBytes()).toString().substring(0, 13);
         File folder = Objects.requireNonNull(new File(uploadPath).listFiles((dir, name) -> name.startsWith(folderId)))[0];
-        File resultName = new File(folder.getParent() + "/" + folderId + "_" + newName);
+        File resultFolder = new File(folder.getParent() + "/" + newFolderId + "_" + newName);
 
-        return folder.renameTo(resultName);
+        if (resultFolder.exists()) {
+            return "";
+        } else {
+            return folder.renameTo(resultFolder) ? resultFolder.getName() : "";
+        }
     }
 }
