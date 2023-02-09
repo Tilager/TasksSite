@@ -1,17 +1,26 @@
 @media (max-width: 1024px) {
-    footer {
-        margin-top: 350px;
-        width: 120%;
-    }
-
     .group-title button[type="button"] {
         border: none;
     }
 }
 
 @media (max-width: 768px) {
+    
+    .header-logo h1 {
+        font-size: 16px;
+        margin-top: 5px;
+    }
+
+    .header-logo span {
+        font-size: 16px;
+    }
+
     header ul li {
         margin-top: 7px;
+    }
+
+    header ul li a {
+        font-size: 14px;
     }
 
     .main-container {
@@ -27,19 +36,6 @@
         justify-content: center;
         margin-left: 50px;
     }
-
-    footer {
-        width: 125%;
-    }
-
-    footer h1 {
-        font-size: 20px;
-    }
-
-    footer p {
-        font-size: 14px;
-    }
-
 }
 
 @media (max-width: 426px) {
@@ -53,7 +49,7 @@
     }
 
     header ul li a {
-        font-size: 14px;
+        font-size: 12px;
     } 
 
     header {
@@ -63,32 +59,15 @@
     .content-left p {
         font-size: 16px;
     } 
-
-    footer {
-        width: 120%;
-        height: 100px;
-        margin-left: -50px;
-        padding: 30px 40px;
-    }
-
-    footer h1 {
-        font-size: 20px;
-    }
-
-    footer p {
-        font-size: 14px;
-    }
-
 }
 
 @media (max-width: 376px) {
-    header ul li a {
-        font-size: 13px;
+    header ul li {
+        padding: 0 7px;
     }
 
-    footer {
-        height: 100px;
-        padding: 30px 40px;
+    header ul li a {
+        font-size: 12px;
     }
 }
 
@@ -101,6 +80,10 @@
         font-size: 10px;
     }
 
+    .group-content p {
+        font-size: 12px;
+    }
+
     .content-left p {
         display: none;
     }
@@ -111,7 +94,6 @@
     }
 
     .group-title {
-        height: 1;
         width: 200px;
     }
 
@@ -122,9 +104,5 @@
 
     .group-content {
         width: 167px;
-    }
-
-    footer {
-        padding: 30px 40px;
     }
 }

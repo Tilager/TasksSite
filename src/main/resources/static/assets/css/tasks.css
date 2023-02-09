@@ -136,6 +136,7 @@ header ul li a:hover {
 .group-title {
     display: flex;
     align-items: center;
+    justify-content: center;
     width: 334px;
     height: 60px;
     background-color: black;
@@ -236,6 +237,7 @@ button i:hover {
     font-size: 20px;
     padding: 5px;
     transition: .2s ease-in-out;
+    cursor: pointer;
 }
 
 .group-content-file__items a:hover {
@@ -251,30 +253,7 @@ button i:hover {
 }
 
 .group-content-file__items {
-    margin-top: 5px;
-}
-
-/* footer */
-
-footer {
-    background-color: #000;
-    margin-left: -100px;
-    padding: 30px 30px;
-    width: 111%;
-    height: 150px;
-    margin-top: 110px;
-}
-
-footer h1 {
-    color: #fff;
-    font-family: 'Source Code Pro', monospace;
-    font-weight: 400;
-}
-
-footer p {
-    color: #fff;
-    margin-top: 20px;
-    font-family: 'Source Code Pro', monospace;
-    font-weight: 400;
-    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
