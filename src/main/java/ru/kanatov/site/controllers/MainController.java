@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import ru.kanatov.site.services.AchievementsService;
 import ru.kanatov.site.services.FolderService;
 
 import java.io.File;
@@ -27,10 +28,12 @@ public class MainController {
     @Value("${upload_path}")
     private String uploadPath;
 
+    private final AchievementsService achievementsService;
     private final FolderService folderService;
 
     @Autowired
-    public MainController(FolderService folderService) {
+    public MainController(AchievementsService achievementsService, FolderService folderService) {
+        this.achievementsService = achievementsService;
         this.folderService = folderService;
     }
 
@@ -45,7 +48,11 @@ public class MainController {
     }
 
     @GetMapping("/achievements")
-    public String achievements() {
+    public String achievements(Model model) {
+        model.addAttribute("courses", achievementsService.getAllCourses());
+        model.addAttribute("achievements", achievementsService.getAllAchievements());
+        model.addAttribute("sciences", achievementsService.getAllSciences());
+
         return "achievements";
     }
 

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="ru" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html lang="ru" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+                xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,8 +12,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/assets/css/achievments.css">
-    <link rel="stylesheet" href="/assets/css/achievments-query.css">
+    <link rel="stylesheet" href="/assets/css/achievements.css">
+    <link rel="stylesheet" href="/assets/css/achievements-query.css">
+    <script src="webjars/jquery/3.6.3/jquery.js"></script>
     <title>Мои достижения</title>
 </head>
 <body>
@@ -42,45 +44,58 @@
             <div class="arrow-down">
                 <i class="fas fa-arrow-down"></i>
             </div>
-            <div class="achievments-list">
+            <div class="achievements-list">
                 <div class="refresher-courses">
-                    <div class="achievment-title">
+                    <div>
+                        <button sec:authorize="isAuthenticated()" id="add-course"><i class="fas fa-folder-plus"></i></button>
+                        <input id="add-course-input"
+                               type="file" name="file-add" style="display: none;"
+                               class="file-add" accept=".pdf"/>
                         <h2>Курсы повышения квалификации</h2>
                     </div>
-                    <div class="achievment-content">
-                        <ul class="achievment-list">
-                            <li><a href="/assets/img/courses/Cours_1.pdf" target="_blank">«Современные подходы к преподаванию информатики в ИКТ-технологии в образовательной деятельности в условиях реализации ФГОС».</a></li>
-                            <li><a href="/assets/img/courses/Cours_2.pdf" target="_blank">«Технологии активного обучения и методика преподавания информатики в условиях реализации ФГОС».</a></li>
-                            <li><a href="/assets/img/courses/Cours_3.pdf" target="_blank">«Опыт разработки и применения дистанционных образовательных технологий в высшем образовании».</a></li>
-                            <li><a href="/assets/img/courses/Cours_4.pdf" target="_blank">«Деловой протокол и этикет для государственных и коммерческих организаций».</a></li>
-                            <li><a href="/assets/img/courses/Cours_5.pdf" target="_blank">«Разработка электронных курсов в СДО Moodle».</a></li>
+                    <div class="achievement-content">
+                        <ul class="achievement-list" id="courses-list">
+                            <li th:each="course: ${courses}">
+                                <a th:href="@{/achievements/courses/{name}(name=${course})}"
+                                   th:text="${course.substring(0, course.length() - 4)}"></a>
+                                <button sec:authorize="isAuthenticated()" class="remove-course"><i class="fas fa-trash-alt"></i></button>
+                            </li>
                         </ul>
                     </div>
                     <div class="scientific-works">
                         <div class="scientific-works">
+                            <button sec:authorize="isAuthenticated()" id="add-science"><i class="fas fa-folder-plus"></i></button>
+                            <input id="add-science-input"
+                                   type="file" name="file-add" style="display: none;"
+                                   class="file-add" accept=".pdf"/>
                             <h2>Научные работы</h2>
                         </div>
-                        <div class="achievment-content">
-                            <ul class="achievment-list">
-                                <li><a href="/assets/img/achievments/Achievment_7.pdf" target="_blank">Сертификат. Автор научной работы «Разработка и автоматизация бизнес-процессов сбора и анализа данных опросов удовлетворительности сотрудников ИТ-компаний с помощью платформы онлайн опросов».</a></li>
+                        <div class="achievement-content">
+                            <ul class="achievement-list" id="sciences-list">
+                                <li th:each="sciene: ${sciences}">
+                                    <a th:href="@{/achievements/sciences/{name}(name=${sciene})}"
+                                       th:text="${sciene.substring(0, sciene.length() - 4)}"></a>
+                                    <button sec:authorize="isAuthenticated()" class="remove-science"><i class="fas fa-trash-alt"></i></button>
+                                </li>
                             </ul>
                         </div>
                     </div>
                 </div>
                 <div class="refresher-courses">
-                    <div class="achievment-title">
+                    <div>
+                        <button sec:authorize="isAuthenticated()" id="add-achievement"><i class="fas fa-folder-plus"></i></button>
+                        <input id="add-achievement-input"
+                               type="file" name="file-add" style="display: none;"
+                               class="file-add" accept=".pdf"/>
                         <h2>Личные достижения</h2>
                     </div>
-                    <div class="achievment-content">
-                        <ul class="achievment-list">
-                            <li><a href="/assets/img/achievments/Achievment_4.pdf" target="_blank">Диплом. победителя Международной педагогической олимпиады «Профессиональная компетентность педагога среднего профессионального образования».</a></li>
-                            <li><a href="/assets/img/achievments/Achievment_2.pdf" target="_blank">Диплом. Информационно-коммуникационные технологии.</a></li>
-                            <li><a href="/assets/img/achievments/Achievment_5.pdf" target="_blank">Диплом. Всероссийская педагогическая конференция «Преподавание информатики и влияние информационных технологий на развитие и обучение» За активное участие в мероприятии.</a></li>
-                            <li><a href="/assets/img/achievments/Achievment_6.pdf" target="_blank">Диплом. победителя в секции «Наука, общество, образование в условиях цифровизации и глобальных изменений».</a></li>
-                            <li><a href="/assets/img/achievments/Achievment_1.pdf" target="_blank">Победитель Всероссийской олимпиады "Педагогическая практика".</a></li>
-                            <li><a href="/assets/img/achievments/Achievment_9.pdf" target="_blank">Сертификат участника научных дебатов «Уроки пандемии: новая реальность».</a></li>
-                            <li><a href="/assets/img/achievments/Achievment_8.pdf" target="_blank">Благодарность за оказанное содействие в подготовке научно-исследовательской работы «Проект внедрения системы электронного документооборота в магазин электронный техники».</a></li>
-                            <li><a href="/assets/img/achievments/Achievment_3.pdf" target="_blank">Участник XI Всероссийской научно-практической конференции.</a></li>
+                    <div class="achievement-content">
+                        <ul class="achievement-list" id="achievements-list">
+                            <li th:each="achievement: ${achievements}">
+                                <a th:href="@{/achievements/achievements/{name}(name=${achievement})}"
+                                   th:text="${achievement.substring(0, achievement.length() - 4)}"></a>
+                                <button sec:authorize="isAuthenticated()" class="remove-achievement"><i class="fas fa-trash-alt"></i></button>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -94,5 +109,6 @@
             </div>
        </footer>
     </div>
+    <script src="/assets/js/achievement.js"></script>
 </body>
 </html>

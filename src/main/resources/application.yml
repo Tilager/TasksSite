@@ -1,0 +1,30 @@
+# Upload absolute path
+upload_path: /home/tigran/site/uploads
+
+# Max Size file
+spring:
+  servlet.multipart:
+    max-file-size: 20MB
+    max-request-size: 20MB
+
+  # Database config
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    username: postgres
+    password: root
+    url: jdbc:postgresql://localhost/kanatov
+
+  jpa:
+    show-sql: false
+
+    # auto-create tables in database
+    generate-ddl: true
+
+  # Create sessions
+  session.jdbc:
+    initialize-schema: always
+    table-name: SPRING_SESSION
+
+  web:
+    resources:
+      static-locations: classpath:/static/, file:/${upload_path}

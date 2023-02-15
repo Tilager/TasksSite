@@ -2,6 +2,30 @@ html {
     overflow-x: hidden;
 }
 
+.achievements-list i {
+    color: rgba(255, 255, 255, 0.3);
+    font-size: 24px;
+    transition: .3s;
+    cursor: pointer;
+}
+
+button {
+    background: transparent;
+    border: none;
+}
+
+i:hover {
+    color: #fff;
+}
+
+.achievement-list button {
+    font-size: 18px;
+    margin-left: 20px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
 * {
     padding: 0;
     margin: 0;
@@ -160,14 +184,14 @@ header ul li a:hover {
 
 /* achievments-list */
 
-.achievments-list {
+.achievements-list {
     display: flex;
     justify-content: space-around;
     margin-top: 300px;
     flex-wrap: wrap;
 }
 
-.achievments-list > div h2 {
+.achievements-list > div h2 {
     color: white;
     font-family: 'Source Code Pro', monospace;
     font-weight: 500;
@@ -180,17 +204,17 @@ header ul li a:hover {
 
 /* achievment */
 
-.achievment-content {
+.achievement-content {
     border: 2px solid black;
     width: 435px;
 }
 
-.achievment-content ul li {
+.achievement-content ul li {
     list-style: none;
     padding: 10px 10px;
 }
 
-.achievment-content ul li a {
+.achievement-content ul li a {
     text-decoration: none;
     color: white;
     font-family: 'Source Code Pro', monospace;
@@ -200,17 +224,17 @@ header ul li a:hover {
 
 /* personal-achievments */
 
-.personal-achievments-content {
+.personal-achievements-content {
     border: 2px solid black;
     width: 435px;
 }
 
-.personal-achievments-content ul li {
+.personal-achievements-content ul li {
     list-style: none;
     padding: 10px 10px;
 }
 
-.personal-achievments-content ul li a {
+.personal-achievements-content ul li a {
     text-decoration: none;
     color: white;
     font-family: 'Source Code Pro', monospace;

@@ -19,10 +19,7 @@ public class FolderService {
     private String uploadPath;
 
     public List<File> getAllFolders() {
-        File folder = new File(uploadPath);
-
-        if (!folder.exists() && !folder.mkdir())
-            log.error("Error create upload files folder!");
+        File folder = new File(uploadPath + "/files/");
 
         return Arrays.stream(Objects.requireNonNull(folder.listFiles())).filter(File::isDirectory).toList();
     }
@@ -33,9 +30,9 @@ public class FolderService {
             String nameFolder = "Новая папка" + (count == 0 ? "" : " (" +  count + ")");
             String uuidFolder = UUID.nameUUIDFromBytes(nameFolder.getBytes()).toString().substring(0, 13);
             String resultFolderName = uuidFolder + "_" + nameFolder;
-            File folder = new File(uploadPath + "/" + resultFolderName);
+            File folder = new File(uploadPath + "/files/" + resultFolderName);
             if (!folder.exists()) {
-                if (folder.mkdir())
+                if (folder.mkdirs())
                     return resultFolderName;
                 else
                     throw new CreateFolderException("Folder not created.");
@@ -46,10 +43,10 @@ public class FolderService {
     }
 
     public String uploadFile(MultipartFile file, String folderId) throws IOException {
-        File folder = Objects.requireNonNull(new File(uploadPath).listFiles((dir, name) -> name.startsWith(folderId)))[0];
+        File folder = Objects.requireNonNull(new File(uploadPath + "/files/").listFiles((dir, name) -> name.startsWith(folderId)))[0];
 
         if (!file.isEmpty()) {
-            String fileName = UUID.nameUUIDFromBytes(file.getOriginalFilename().getBytes()).toString().substring(0, 13) + "_" + file.getOriginalFilename();
+            String fileName = UUID.nameUUIDFromBytes(Objects.requireNonNull(file.getOriginalFilename()).getBytes()).toString().substring(0, 13) + "_" + file.getOriginalFilename();
             file.transferTo(new File(folder + "/" + fileName));
             return fileName;
         }
@@ -58,7 +55,7 @@ public class FolderService {
     }
 
     public boolean removeFolder(String folderId) {
-        File folder = Objects.requireNonNull(new File(uploadPath).listFiles((dir, name) -> name.startsWith(folderId)))[0];
+        File folder = Objects.requireNonNull(new File(uploadPath + "/files/").listFiles((dir, name) -> name.startsWith(folderId)))[0];
 
         try {
             FileUtils.deleteDirectory(folder);
@@ -69,7 +66,7 @@ public class FolderService {
     }
 
     public boolean removeFile(String folderId, String fileId) throws IOException {
-        File folder = Objects.requireNonNull(new File(uploadPath).listFiles((dir, name) -> name.startsWith(folderId)))[0];
+        File folder = Objects.requireNonNull(new File(uploadPath + "/files/").listFiles((dir, name) -> name.startsWith(folderId)))[0];
         File file = Objects.requireNonNull(folder.listFiles(((dir, name) -> name.startsWith(fileId))))[0];
 
         return Files.deleteIfExists(file.toPath());
@@ -77,7 +74,7 @@ public class FolderService {
 
     public String rename(String folderId, String newName) {
         String newFolderId = UUID.nameUUIDFromBytes(newName.getBytes()).toString().substring(0, 13);
-        File folder = Objects.requireNonNull(new File(uploadPath).listFiles((dir, name) -> name.startsWith(folderId)))[0];
+        File folder = Objects.requireNonNull(new File(uploadPath + "/files/").listFiles((dir, name) -> name.startsWith(folderId)))[0];
         File resultFolder = new File(folder.getParent() + "/" + newFolderId + "_" + newName);
 
         if (resultFolder.exists()) {

@@ -65,7 +65,7 @@ $(document).on('click', '.file-add-btn', function (e) {
             });
 
         } else {
-            console.log("else")
+            return false;
         }
         inputFile.val = "";
     })

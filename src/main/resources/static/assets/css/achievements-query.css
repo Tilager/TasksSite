@@ -60,11 +60,11 @@
         display: none;
     }
 
-    .achievment-content {
+    .achievement-content {
         width: 335px;
     }
 
-    .achievments-list > div h2 {
+    .achievements-list > div h2 {
         font-size: 18px;
         padding: 10px;
         width: 318px;
@@ -124,11 +124,11 @@
         font-size: 10px;
     }
 
-    .achievment-content {
+    .achievement-content {
         width: 270px;
     }
 
-    .achievments-list > div h2 {
+    .achievements-list > div h2 {
         font-size: 14px;
         padding: 10px;
         width: 254px;
