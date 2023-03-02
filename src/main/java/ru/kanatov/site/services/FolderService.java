@@ -42,16 +42,20 @@ public class FolderService {
         }
     }
 
-    public String uploadFile(MultipartFile file, String folderId) throws IOException {
+    public HashMap<String, String> uploadFile(MultipartFile file, String folderId) throws IOException {
         File folder = Objects.requireNonNull(new File(uploadPath + "/files/").listFiles((dir, name) -> name.startsWith(folderId)))[0];
 
         if (!file.isEmpty()) {
             String fileName = UUID.nameUUIDFromBytes(Objects.requireNonNull(file.getOriginalFilename()).getBytes()).toString().substring(0, 13) + "_" + file.getOriginalFilename();
-            file.transferTo(new File(folder + "/" + fileName));
-            return fileName;
+            String fileUrl = folder + "/" + fileName;
+            file.transferTo(new File(fileUrl));
+            return new HashMap<>() {{
+                put("fileName", fileName);
+                put("folderName", fileUrl.substring(fileUrl.indexOf(folderId), fileUrl.lastIndexOf("/")));
+            }};
         }
 
-        return "";
+        return null;
     }
 
     public boolean removeFolder(String folderId) {

@@ -11,6 +11,7 @@ import ru.kanatov.site.services.AchievementsService;
 import ru.kanatov.site.services.FolderService;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 @RestController
 @RequestMapping("/api")
@@ -35,13 +36,13 @@ public class ApiController {
     }
 
     @PostMapping("/uploadFile")
-    public String addFile(@RequestParam("file") MultipartFile file,
+    public ResponseEntity<?> addFile(@RequestParam("file") MultipartFile file,
                           @RequestParam("folderId") String folderId) {
         try {
-            String res = folderService.uploadFile(file, folderId);
+            HashMap<String, String> res = folderService.uploadFile(file, folderId);
 
-            if (!res.equals(""))
-                return res;
+            if (res != null)
+                return new ResponseEntity<>(res, HttpStatus.OK);
             else
                 throw new RuntimeException("Upload file error");
         } catch (IOException e) {

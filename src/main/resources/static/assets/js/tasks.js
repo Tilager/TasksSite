@@ -49,11 +49,12 @@ $(document).on('click', '.file-add-btn', function (e) {
                     alert("File uploaded!");
 
                     $(`#${folderId} .group-content`).append(`
-                        <div class="group-content-file-content" id=${data.substring(0, 13)} >
+                        <div class="group-content-file-content" id=${data.fileName.substring(0, 13)} >
                             <img src="/assets/img/file-icon.png" alt="file" class="group-content-file">
                             <p class="group-content-file-name">${file.name.substring(0, 7)}...</p>
                             <div class="group-content-file__items">
-                                <a href="/download/${folderId}/${data.substring(0, 13)}"><i class="fas fa-download"></i></a>
+                                <a href="/files/${data.folderName}/${data.fileName}"
+                                   download="${data.fileName.substring(14)}"><i class="fas fa-download"></i></a>
                                 <a href="" class="remove-file"><i class="fas fa-trash-alt"></i></a>
                             </div>
                         </div>

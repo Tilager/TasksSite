@@ -20,6 +20,8 @@ public class SiteApplication {
     @EventListener(ApplicationReadyEvent.class)
     public void doSomethingAfterStartup() {
         new File(uploadPath + "/files/").mkdirs();
-        new File(uploadPath + "/achievements/").mkdirs();
+        new File(uploadPath + "/achievements/achievements").mkdirs();
+        new File(uploadPath + "/achievements/sciences").mkdirs();
+        new File(uploadPath + "/achievements/courses").mkdirs();
     }
 }

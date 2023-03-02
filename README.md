@@ -1,32 +1,27 @@
 # TasksSite
 ---------- RUS ----------
-<br>Для запуска сайта требуется:
+## Setting
+Переименовать файл /src/main/resources/application.yml.origin на application.yml. В данном файле изменить следующие параметры:
+- upload_path
+- username
+- password
+- url
 
-1. Установить MY SQL
+Пример как должно выглядеть:
+``` 
+upload_path: "D:/usersForum"
+username: postgres
+password: root
+url: jdbc:postgresql://localhost/forum
+```
 
-2. Создать базу данных
-
-3. В src/main/resources/application.properties.origin добавить значение в следующие поля:
-
-        spring.datasource.username=<br>
-        spring.datasource.password=<br>
-        spring.datasource.url=<DataBase URL (example: jdbc:mysql://localhost:3306/forum)><br>
-
-В upload_path=D:/users вместо "D:/users" подставить путь к папке, где будут храниться пользовательские файлы. <br>
-MaxSize files изменить по желанию.
-<br><br><br>
----------- ENG ----------
-<br>To launch the site, you need:
-
-1. Install MY SQL
-
-2. Create a database
-
-3. In src/main/resources/application.properties.origin, add the value to the following fields:
-
-        spring.datasource.username=<br>
-        spring.datasource.password=<br>
-        spring.datasource.url=<DataBase URL (example: jdbc:mysql://localhost:3306/forum)><br>
-
-In upload_path=D:/users instead of "D:/users " substitute the path to the folder where the user files will be stored. <br>
-MaxSize files can be changed as desired.
+## Installation
+1. Установить [JDK](https://www.oracle.com/java/technologies/downloads/) v19.0.1+
+2. Установить и настроить базу данных (Рекомендуется [PostgreSQL](https://www.postgresql.org/))
+3. Открыть папку с проектом в командной строке и выполнить следующие команды
+```
+mvnw.cmd clean
+mvnw.cmd package
+cd target
+java -jar forum-0.0.1-SNAPSHOT.jar
+```
