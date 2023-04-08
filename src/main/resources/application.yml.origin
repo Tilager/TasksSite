@@ -1,11 +1,11 @@
 # Upload absolute path
 upload_path:
+max_file_size: 100
 
-# Max Size file
 spring:
   servlet.multipart:
-    max-file-size: 20MB
-    max-request-size: 20MB
+    max-file-size: ${max_file_size}MB
+    max-request-size: ${max_file_size}MB
 
   # Database config
   datasource:
@@ -28,3 +28,6 @@ spring:
   web:
     resources:
       static-locations: classpath:/static/, file:/${upload_path}
+
+server:
+  port: 8079

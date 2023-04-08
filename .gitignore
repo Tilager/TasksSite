@@ -14,6 +14,7 @@ target/
 .sts4-cache
 application.yml
 application-dev.yml
+deploy.sh
 
 ### IntelliJ IDEA ###
 .idea

@@ -44,7 +44,7 @@ public class ApiController {
             if (res != null)
                 return new ResponseEntity<>(res, HttpStatus.OK);
             else
-                throw new RuntimeException("Upload file error");
+                throw new RuntimeException("Upload file error.");
         } catch (IOException e) {
             throw new RuntimeException("Upload file error");
         }

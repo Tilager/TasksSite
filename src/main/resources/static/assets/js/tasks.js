@@ -8,10 +8,10 @@ $(document).on('click', '#create-folder-btn', function (e) {
 
             $('#folders-div').append(`<div class="group" id="${indexFolder}">
                     <div class="group-title">
-                        <div class="group-name add-remove-group-btns" sec:authorize="isAuthenticated()">
+                        <div class="group-name add-remove-group-btns">
                             <input type="text" name="group-name" class="folder-name" value="${data.substring(14)}">
                             <button type="button"><i class="fas fa-folder-minus file-remove-btn"></i></button> <!-- Удалить папку -->
-                            <button type="button"><i class="fa fa-file file-add-btn" aria-hidden="true"></i></button> <!-- Добавить файл -->
+                            <button type="button" class="file-add-btn"><i class="fa fa-file" aria-hidden="true"></i></button> <!-- Добавить файл -->
                             <input id="file-add-${indexFolder}"
                                    type="file" name="file-add" style="display: none;"
                                    class="file-add"/>
@@ -61,6 +61,9 @@ $(document).on('click', '.file-add-btn', function (e) {
                     `);
 
                     return false;
+                },
+                error: function (data) {
+                    alert("File uploaded error");
                 }
 
             });
@@ -128,7 +131,21 @@ $(document).on('keydown', '.folder-name', function (e) {
             success: function (data) {
                 alert("Файл успешно переименован!");
                 let newFolderId = data.substring(0, 13);
-                $(`#${folderId}`).attr('id', newFolderId);
+                let folderDiv = $(`#${folderId}`);
+                folderDiv.attr('id', newFolderId);
+
+                let titleDiv = folderDiv.find(".group-title");
+                titleDiv.find(".group-name").remove();
+                titleDiv.append(`<div class="group-name add-remove-group-btns">
+                                    <input type="text" name="group-name" class="folder-name" value="${data.substring(14)}">
+                                    <button type="button" class="file-remove-btn"><i class="fas fa-folder-minus"></i></button> <!-- Удалить папку -->
+                                    <button type="button" class="file-add-btn"><i class="fa fa-file" aria-hidden="true"></i></button> <!-- Добавить файл -->
+                                    <input id="${'file-add-' + newFolderId}"
+                                           type="file" name="file-add" style="display: none;"
+                                           class="file-add"/>
+                                </div>`);
+
+                console.log();
 
             },
             statusCode: {
