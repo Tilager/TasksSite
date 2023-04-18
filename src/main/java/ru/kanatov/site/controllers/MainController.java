@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import ru.kanatov.site.models.DirectoryModel;
 import ru.kanatov.site.services.AchievementsService;
 import ru.kanatov.site.services.FolderService;
 
@@ -46,18 +47,9 @@ public class MainController {
 
     @GetMapping("/tasks")
     public String tasks(Model model) {
-        Map<String, List<String>> allFolders = new HashMap<>() {{
-            for (File folder : folderService.getAllFolders()) {
-                List<String> fileNames = new ArrayList<>();
-                for (File file : Objects.requireNonNull(folder.listFiles())) {
-                    fileNames.add(file.getName());
-                }
+        List<DirectoryModel> directories = folderService.getAllFolders();
 
-                put(folder.getName(), fileNames);
-            }
-        }};
-
-        model.addAttribute("allFolders", allFolders);
+        model.addAttribute("directories", directories);
 
         return "tasks";
     }

@@ -38,33 +38,33 @@
             </div>
             <div class="main-container">
                 <div class="content-right" id="folders-div">
-                    <div class="group" th:each="folder: ${allFolders}" th:id="${folder.key.substring(0, 13)}">
+                    <div class="group" th:each="directory: ${directories}" th:id="${directory.uuid}">
                         <div class="group-title">
                             <div class="group-name add-remove-group-btns" sec:authorize="isAuthenticated()">
-                                <input type="text" name="group-name" class="folder-name" th:value="${folder.key.substring(14)}">
+                                <input type="text" name="group-name" class="folder-name" th:value="${directory.name}">
                                 <button type="button" class="file-remove-btn"><i class="fas fa-folder-minus"></i></button> <!-- Удалить папку -->
                                 <button type="button" class="file-add-btn"><i class="fa fa-file" aria-hidden="true"></i></button> <!-- Добавить файл -->
-                                <input th:id="${'file-add-' + folder.key.substring(0, 13)}"
+                                <input th:id="${'file-add-' + directory.uuid}"
                                        type="file" name="file-add" style="display: none;"
                                        class="file-add"/>
                             </div>
                             <input type="text" name="group-name"
-                                   th:value="${folder.key.substring(14)}" readonly
+                                   th:value="${directory.name}" readonly
                                    sec:authorize="!isAuthenticated()">
                         </div>
                         <div class="group-content">
-                            <div class="group-content-file-content" th:each="fileName: ${folder.value}" th:id="${fileName.substring(0, 13)}">
+                            <div class="group-content-file-content" th:each="file: ${directory.files}" th:id="${file.uuid}">
                                 <img src="/assets/img/file-icon.png" alt="file" class="group-content-file">
-                                <p class="group-content-file-name" th:text="${fileName.substring(14).substring(0, 7) + '...'}">Название документа</p>
+                                <p class="group-content-file-name" th:text="${file.name.substring(0, 7) + '...'}">Название документа</p>
                                 <div class="group-content-file__items" sec:authorize="isAuthenticated()">
-                                    <a th:href="${'/files/' + folder.key + '/' + fileName}"
-                                       th:attr="download=${fileName}"><i class="fas fa-download"></i></a>
+                                    <a th:href="${'/files/' + directory.uuid + '/' + file.uuid + file.name.substring(file.name.lastIndexOf('.'))}"
+                                       th:attr="download=${file.name}"><i class="fas fa-download"></i></a>
                                     <a href="" class="remove-file"><i class="fas fa-trash-alt"></i></a>
                                 </div>
 
                                 <div class="group-content-file__items" sec:authorize="!isAuthenticated()">
-                                    <a th:href="${'/files/' + folder.key + '/' + fileName}"
-                                       th:attr="download=${fileName}"><i class="fas fa-download"></i></a>
+                                    <a th:href="${'/files/' + directory.uuid + '/' + file.uuid + file.name.substring(file.name.lastIndexOf('.'))}"
+                                       th:attr="download=${file.name}"><i class="fas fa-download"></i></a>
                                 </div>
                             </div>
                         </div>

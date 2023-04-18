@@ -56,8 +56,8 @@
                     <div class="achievement-content">
                         <ul class="achievement-list" id="courses-list">
                             <li th:each="course: ${courses}">
-                                <a th:href="@{/achievements/courses/{name}(name=${course})}"
-                                   th:text="${course.substring(0, course.length() - 4)}"></a>
+                                <a th:href="@{/achievements/courses/{uuid}.pdf(uuid=${course.uuid})}"
+                                   th:text="${course.name.substring(0, course.name.length() - 4)}"></a>
                                 <button sec:authorize="isAuthenticated()" class="remove-course"><i class="fas fa-trash-alt"></i></button>
                             </li>
                         </ul>
@@ -73,8 +73,8 @@
                         <div class="achievement-content">
                             <ul class="achievement-list" id="sciences-list">
                                 <li th:each="sciene: ${sciences}">
-                                    <a th:href="@{/achievements/sciences/{name}(name=${sciene})}"
-                                       th:text="${sciene.substring(0, sciene.length() - 4)}"></a>
+                                    <a th:href="@{/achievements/sciences/{uuid}.pdf(uuid=${sciene.uuid})}"
+                                       th:text="${sciene.name.substring(0, sciene.name.length() - 4)}"></a>
                                     <button sec:authorize="isAuthenticated()" class="remove-science"><i class="fas fa-trash-alt"></i></button>
                                 </li>
                             </ul>
@@ -92,8 +92,8 @@
                     <div class="achievement-content">
                         <ul class="achievement-list" id="achievements-list">
                             <li th:each="achievement: ${achievements}">
-                                <a th:href="@{/achievements/achievements/{name}(name=${achievement})}"
-                                   th:text="${achievement.substring(0, achievement.length() - 4)}"></a>
+                                <a th:href="@{/achievements/achievements/{uuid}.pdf(uuid=${achievement.uuid})}"
+                                   th:text="${achievement.name.substring(0, achievement.name.length() - 4)}"></a>
                                 <button sec:authorize="isAuthenticated()" class="remove-achievement"><i class="fas fa-trash-alt"></i></button>
                             </li>
                         </ul>

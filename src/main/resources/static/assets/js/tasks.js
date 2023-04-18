@@ -4,15 +4,15 @@ $(document).on('click', '#create-folder-btn', function (e) {
         method: "post",
         contentType: "application/json",
         success: function (data) {
-            let indexFolder = data.substring(0, 13);
-
-            $('#folders-div').append(`<div class="group" id="${indexFolder}">
+            $('#folders-div').append(`<div class="group" id="${data.uuid}">
                     <div class="group-title">
                         <div class="group-name add-remove-group-btns">
-                            <input type="text" name="group-name" class="folder-name" value="${data.substring(14)}">
+                            <input type="text" name="group-name" class="folder-name" value="${data.name}">
                             <button type="button"><i class="fas fa-folder-minus file-remove-btn"></i></button> <!-- Удалить папку -->
-                            <button type="button" class="file-add-btn"><i class="fa fa-file" aria-hidden="true"></i></button> <!-- Добавить файл -->
-                            <input id="file-add-${indexFolder}"
+                            <button type="button" class="file-add-btn">
+                                <i class="fa fa-file" aria-hidden="true"></i>
+                            </button> <!-- Добавить файл -->
+                            <input id="file-add-${data.uuid}"
                                    type="file" name="file-add" style="display: none;"
                                    class="file-add"/>
                         </div>
@@ -46,15 +46,16 @@ $(document).on('click', '.file-add-btn', function (e) {
                 contentType: false,
                 cache: false,
                 success: function (data) {
-                    alert("File uploaded!");
+                    alert("Файл успешно загружен!");
+                    console.log(data);
 
                     $(`#${folderId} .group-content`).append(`
-                        <div class="group-content-file-content" id=${data.fileName.substring(0, 13)} >
+                        <div class="group-content-file-content" id=${data.uuid} >
                             <img src="/assets/img/file-icon.png" alt="file" class="group-content-file">
-                            <p class="group-content-file-name">${file.name.substring(0, 7)}...</p>
+                            <p class="group-content-file-name">${data.name.substring(0, 7)}...</p>
                             <div class="group-content-file__items">
-                                <a href="/files/${data.folderName}/${data.fileName}"
-                                   download="${data.fileName.substring(14)}"><i class="fas fa-download"></i></a>
+                                <a href="/files/${data.directory.uuid}/${data.uuid}.${data.name.split('.').pop()}"
+                                   download="${data.name}"><i class="fas fa-download"></i></a>
                                 <a href="" class="remove-file"><i class="fas fa-trash-alt"></i></a>
                             </div>
                         </div>
@@ -63,7 +64,7 @@ $(document).on('click', '.file-add-btn', function (e) {
                     return false;
                 },
                 error: function (data) {
-                    alert("File uploaded error");
+                    alert("Не удалось загрузить файл! Возможно файл много весит или данный файл уже существует.");
                 }
 
             });
@@ -129,15 +130,15 @@ $(document).on('keydown', '.folder-name', function (e) {
             contentType: false,
             cache: false,
             success: function (data) {
-                alert("Файл успешно переименован!");
-                let newFolderId = data.substring(0, 13);
+                alert("Папка успешно переименована!");
+                let newFolderId = data.uuid;
                 let folderDiv = $(`#${folderId}`);
                 folderDiv.attr('id', newFolderId);
 
                 let titleDiv = folderDiv.find(".group-title");
                 titleDiv.find(".group-name").remove();
                 titleDiv.append(`<div class="group-name add-remove-group-btns">
-                                    <input type="text" name="group-name" class="folder-name" value="${data.substring(14)}">
+                                    <input type="text" name="group-name" class="folder-name" value="${data.name}">
                                     <button type="button" class="file-remove-btn"><i class="fas fa-folder-minus"></i></button> <!-- Удалить папку -->
                                     <button type="button" class="file-add-btn"><i class="fa fa-file" aria-hidden="true"></i></button> <!-- Добавить файл -->
                                     <input id="${'file-add-' + newFolderId}"

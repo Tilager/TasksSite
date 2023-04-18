@@ -79,17 +79,17 @@ $(document).on("click", "#add-achievement", function () {
                 contentType: false,
                 cache: false,
                 success: function (data) {
-                    alert("File uploaded!");
+                    alert("Достижение успешно добавлено!");
                     $("#achievements-list").append(`
                         <li>
-                            <a href="/achievements/achievements/${data}">${data.substring(0, data.length - 4)}</a>
+                            <a href="/achievements/achievements/${data.uuid}.pdf">${data.name.substring(0, data.name.length - 4)}</a>
                             <button class="remove-achievement"><i class="fas fa-trash-alt" aria-hidden="true"></i></button>
                         </li>
                     `);
                     return false;
                 },
-                error: function (err) {
-                    console.error(err);
+                statusCode: {
+                    400: function (e) { alert(e.responseText) }
                 }
             });
 
@@ -123,17 +123,17 @@ $(document).on("click", "#add-course", function () {
                 contentType: false,
                 cache: false,
                 success: function (data) {
-                    alert("File uploaded!");
+                    alert("Курс успешно добавлен!");
                     $("#courses-list").append(`
                         <li>
-                            <a href="/achievements/courses/${data}">${data.substring(0, data.length - 4)}</a>
+                            <a href="/achievements/courses/${data.uuid}.pdf">${data.name.substring(0, data.name.length - 4)}</a>
                             <button class="remove-course"><i class="fas fa-trash-alt" aria-hidden="true"></i></button>
                         </li>
                     `);
                     return false;
                 },
-                error: function (err) {
-                    console.error(err);
+                statusCode: {
+                    400: function (e) { alert(e.responseText) }
                 }
             });
 
@@ -167,17 +167,17 @@ $(document).on("click", "#add-science", function () {
                 contentType: false,
                 cache: false,
                 success: function (data) {
-                    alert("File uploaded!");
+                    alert("Научна работа успешно добавлена!");
                     $("#sciences-list").append(`
                         <li>
-                            <a href="/achievements/sciences/${data}">${data.substring(0, data.length - 4)}</a>
+                            <a href="/achievements/sciences/${data.uuid}.pdf">${data.name.substring(0, data.name.length - 4)}</a>
                             <button class="remove-science"><i class="fas fa-trash-alt" aria-hidden="true"></i></button>
                         </li>
                     `);
                     return false;
                 },
-                error: function (err) {
-                    console.error(err);
+                statusCode: {
+                    400: function (e) { alert(e.responseText) }
                 }
             });
 

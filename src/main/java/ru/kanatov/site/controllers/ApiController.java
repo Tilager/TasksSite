@@ -7,11 +7,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ru.kanatov.site.exceptions.CreateFolderException;
+import ru.kanatov.site.models.FileModel;
 import ru.kanatov.site.services.AchievementsService;
 import ru.kanatov.site.services.FolderService;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api")
@@ -27,7 +30,7 @@ public class ApiController {
     }
 
     @PostMapping("/addFolder")
-    public ResponseEntity<String> addFolder() {
+    public ResponseEntity<?> addFolder() {
         try {
             return new ResponseEntity<>(folderService.createFolder(), HttpStatus.OK);
         } catch (CreateFolderException ex) {
@@ -39,14 +42,14 @@ public class ApiController {
     public ResponseEntity<?> addFile(@RequestParam("file") MultipartFile file,
                           @RequestParam("folderId") String folderId) {
         try {
-            HashMap<String, String> res = folderService.uploadFile(file, folderId);
+            FileModel res = folderService.uploadFile(file, folderId);
 
             if (res != null)
                 return new ResponseEntity<>(res, HttpStatus.OK);
             else
-                throw new RuntimeException("Upload file error.");
+                return new ResponseEntity<>("Upload file error", HttpStatus.BAD_REQUEST);
         } catch (IOException e) {
-            throw new RuntimeException("Upload file error");
+            return new ResponseEntity<>("Upload file error", HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -72,10 +75,10 @@ public class ApiController {
     }
 
     @PostMapping("/rename")
-    public ResponseEntity<String> rename(@RequestParam("folderId") String folderId, @RequestParam("name") String newName) {
-        String changedName = folderService.rename(folderId, newName);
-        if (!changedName.equals(""))
-            return new ResponseEntity<>(changedName, HttpStatus.OK);
+    public ResponseEntity<?> rename(@RequestParam("folderId") String folderId, @RequestParam("name") String newName) {
+        Map<String, String> changedFolder = folderService.rename(folderId, newName);
+        if (changedFolder != null)
+            return new ResponseEntity<>(changedFolder, HttpStatus.OK);
         else
             return new ResponseEntity<>("Folder not renamed.", HttpStatus.BAD_REQUEST);
     }
@@ -122,41 +125,56 @@ public class ApiController {
     }
 
     @PostMapping("/uploadAchievement")
-    public ResponseEntity<String> uploadAchievement(@RequestParam("file") MultipartFile file) {
+    public ResponseEntity<?> uploadAchievement(@RequestParam("file") MultipartFile file) {
         try {
             if (!achievementsService.uploadAchievement(file)) {
-                return new ResponseEntity<>("File extension != pdf", HttpStatus.BAD_REQUEST);
+                return new ResponseEntity<>("Расширение файла не PDF или файл уже существует!", HttpStatus.BAD_REQUEST);
             }
         } catch (IOException e) {
             return new ResponseEntity<>("IOException", HttpStatus.BAD_REQUEST);
         }
 
-        return new ResponseEntity<>(file.getOriginalFilename(), HttpStatus.OK);
+        Map<String, String> response = new HashMap<>() {{
+           put("name", file.getOriginalFilename());
+           put("uuid", String.valueOf(UUID.nameUUIDFromBytes(file.getOriginalFilename().getBytes())));
+        }};
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @PostMapping("/uploadCourse")
-    public ResponseEntity<String> uploadCourse(@RequestParam("file") MultipartFile file) {
+    public ResponseEntity<?> uploadCourse(@RequestParam("file") MultipartFile file) {
         try {
             if (!achievementsService.uploadCourse(file)) {
-                return new ResponseEntity<>("File extension != pdf", HttpStatus.BAD_REQUEST);
+                return new ResponseEntity<>("Расширение файла не PDF или файл уже существует!", HttpStatus.BAD_REQUEST);
             }
         } catch (IOException e) {
             return new ResponseEntity<>("IOException", HttpStatus.BAD_REQUEST);
         }
 
-        return new ResponseEntity<>(file.getOriginalFilename(), HttpStatus.OK);
+        Map<String, String> response = new HashMap<>() {{
+            put("name", file.getOriginalFilename());
+            put("uuid", String.valueOf(UUID.nameUUIDFromBytes(file.getOriginalFilename().getBytes())));
+        }};
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @PostMapping("/uploadScience")
-    public ResponseEntity<String> uploadScience(@RequestParam("file") MultipartFile file) {
+    public ResponseEntity<?> uploadScience(@RequestParam("file") MultipartFile file) {
         try {
             if (!achievementsService.uploadScience(file)) {
-                return new ResponseEntity<>("File extension != pdf", HttpStatus.BAD_REQUEST);
+                return new ResponseEntity<>("Расширение файла не PDF или файл уже существует!", HttpStatus.BAD_REQUEST);
             }
         } catch (IOException e) {
             return new ResponseEntity<>("IOException", HttpStatus.BAD_REQUEST);
         }
 
-        return new ResponseEntity<>(file.getOriginalFilename(), HttpStatus.OK);
+        Map<String, String> response = new HashMap<>() {{
+            put("name", file.getOriginalFilename());
+            put("uuid", String.valueOf(UUID.nameUUIDFromBytes(file.getOriginalFilename().getBytes())));
+        }};
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }
